@@ -8,6 +8,7 @@ export default function App() {
     'outfit': require('./assets/fonts/static/Outfit-Regular.ttf'),
     'outfit-bold': require('./assets/fonts/static/Outfit-Bold.ttf'),
     'outfit-thin': require('./assets/fonts/static/Outfit-Thin.ttf'),
+    'outfit-extra': require('./assets/fonts/static/Outfit-ExtraBold.ttf'),
   });
   return (
     <View style={styles.container}>
