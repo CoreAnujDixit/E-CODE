@@ -1,8 +1,32 @@
 import { View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native'
 import React from 'react'
 import Colors from '../Utils/Colors'
+import * as WebBrowser from "expo-web-browser";
+import { useWarmUpBrowser } from '../../hooks/warmUpBrowser';
+import { useOAuth } from '@clerk/clerk-expo';
+
+
+WebBrowser.maybeCompleteAuthSession();
 
 export default function LoginScreen() {
+    useWarmUpBrowser();
+
+    const { startOAuthFlow } = useOAuth({ strategy: "oauth_google" });
+
+    const onPress = React.useCallback(async () => {
+        try {
+            const { createdSessionId, signIn, signUp, setActive } =
+                await startOAuthFlow();
+
+            if (createdSessionId) {
+                setActive({ session: createdSessionId });
+            } else {
+                // Use signIn or signUp for next steps such as MFA
+            }
+        } catch (err) {
+            console.error("OAuth error", err);
+        }
+    }, []);
     return (
         <View style={styles.container}>
             <Image style={styles.img} source={require('../../assets/img-portrait.png')} />
@@ -15,7 +39,7 @@ export default function LoginScreen() {
                 bottom: 290,
 
             }]}>Ultimate Learning Through this APP!</Text>
-            <TouchableOpacity style={styles.login} onPress={() => { console.log("Pressed") }}>
+            <TouchableOpacity style={styles.login} onPress={onPress}>
                 <Image style={styles.google} source={require('../../assets/google.png')} />
                 <Text style={{
                     fontFamily: 'outfit',
