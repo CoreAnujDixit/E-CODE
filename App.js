@@ -1,11 +1,9 @@
-import { View, StyleSheet } from 'react-native';
+import { View, StyleSheet, StatusBar } from 'react-native';
 import { useFonts } from 'expo-font';
 import LoginScreen from './App/Screen/LoginScreen';
 import { ClerkProvider, SignedIn, SignedOut } from '@clerk/clerk-expo';
 import TabNavigation from './App/Navigations/TabNavigation';
 import { NavigationContainer } from '@react-navigation/native';
-
-
 
 function App() {
   const [fontsLoaded, fontError] = useFonts({
@@ -17,17 +15,20 @@ function App() {
   return (
     // Clerk for _Auth
     <ClerkProvider publishableKey={"pk_test_ZGl2aW5lLWVsay03NS5jbGVyay5hY2NvdW50cy5kZXYk"}>
-      <View style={styles.container}>
+      <View>
+        <StatusBar />
+        <SignedOut>
+          <LoginScreen />
+        </SignedOut>
         {/* Sign in */}
+
         <SignedIn>
-          <NavigationContainer>
+          <NavigationContainer >
             <TabNavigation />
           </NavigationContainer>
         </SignedIn>
         {/* Signout */}
-        <SignedOut>
-          <LoginScreen />
-        </SignedOut>
+
       </View>
     </ClerkProvider >
   );
@@ -36,6 +37,6 @@ export default App;
 
 const styles = StyleSheet.create({
   container: {
-    top: 750
-  },
+    top: "93.5%"
+  }
 });
