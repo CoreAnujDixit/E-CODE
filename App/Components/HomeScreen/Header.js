@@ -100,7 +100,6 @@ const styles = StyleSheet.create({
     alignItems: "center",
     backgroundColor: "white",
     borderRadius: 8,
-    marginTop: 10,
     padding: 5,
     justifyContent: "space-between",
     marginLeft: responsiveWidth(10),
